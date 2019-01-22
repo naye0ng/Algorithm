@@ -1,9 +1,9 @@
 """
 Spiral Algorithm
 (나선형, 달팽이 알고리즘)
-"""
 
-# 1. 등차수열 이용
+1. 등차수열 이용
+"""
 an = [[0]*6 for i in range(6)]
 n = len(an)
 
@@ -43,16 +43,5 @@ while i <= n*n:
 
 for e in range(n) :
     print(an[e])
-
-
-
-#2. delta 이용 
-dx = [0,1,0,-1]
-dy = [1,0,-1,0]
-
-
-
-
-
 
 
