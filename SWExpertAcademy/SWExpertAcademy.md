@@ -45,4 +45,4 @@
 - [x] 1259
 
 ### level 6
-- [ ] 1260
+- [ ] 1260 : error ===> Bad Gateway 
