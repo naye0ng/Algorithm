@@ -16,7 +16,9 @@ for test_case in range(1, T + 1):
             if i & (1 << j) :
                 # an[i]가 부분집합에 들어 있다면
                 count+=1
-                ansum+=an[j]
+                # 이부분은 an[j]가 j+1(an의 j번째값은 j+1)가 된다. >> 이부분에 들어왔다는 것은 j가 부분집합에 선택되었다는 말임
+                # 즉, ansum+=an[j]가 아니라 ansum+=(j+1) : 
+                ansum+=(j+1)
         #여기까지가 부분집합 1번
         if count == n and ansum == k :
             result+=1
