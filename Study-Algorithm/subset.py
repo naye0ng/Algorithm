@@ -1,7 +1,6 @@
 """
 부분집합의 합
 """
-
 arr = list(map(int,input().split()))
 
 n = len(arr)
