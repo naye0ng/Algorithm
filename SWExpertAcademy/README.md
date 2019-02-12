@@ -57,9 +57,14 @@
 - [x] 1259
 
 ### level 6
+- [x] 1267
 - [ ] 1260 : error ===> Bad Gateway 
 
 ### Programming Inermediate Course
 - [x] 4861
 - [x] 4864
 - [x] 4865
+- [x] 4869
+- [x] 4866
+- [x] 4871
+- [x] 4873
