@@ -265,7 +265,7 @@ def partition(a, begin, end):
 
 <br />
 
-#### 함수구현
+#### 구현
 
 | 연산          | 기능                                   |
 | ------------- | -------------------------------------- |
@@ -322,7 +322,7 @@ class Queue :
 
 <br />
 
-### D-2. 원형 큐
+### D-2. 원형 큐(Round Queue)
 
 *code: /Study-Algorithm/RoundQueue.py*
 
@@ -380,7 +380,7 @@ class RoundQueue :
 
 <br />
 
-### D-3. 연결 큐
+### D-3. 연결 큐(Linked Queue)
 
 연결 큐의 경우 하나의 노드가 다음 노드를 가리키도록 만들어 줘야한다. 원형큐나 선형큐와는 다르게 하나의 노드에 노드의 값과 다음 원소의 주소값 총 2가지 데이터를 가지게 된다.
 
@@ -397,7 +397,7 @@ class RoundQueue :
 
 <br />
 
-#### 함수 구현
+#### 구현
 
 **(1). enQueue**
 
@@ -507,7 +507,7 @@ DFS와 다르게 같은 레벨의 노드부터 탐색을 수행한다. 인접한
 
 <br />
 
-**구현**
+#### 구현
 
 - 큐에 같은 레벨의 노드를 넣어 놓고 deQueue할 때마다 해당 노드에 연결된 하위 노드를 큐에 넣는 방식으로 구현
 
@@ -538,6 +538,161 @@ n = 9
 G = [[2,3,4],[5,6],[8],[7,8,9],[],[],[],[],[]]
 BFS(G, 1)
 ```
+
+
+
+## E. 리스트
+
+- 자료구조에서의 리스트는 순서를 가진 데이터의 집합을 가리키는 추상자료형을 말한다.
+- 동일한 데이터를 가지고 있어도 상관없다.
+
+<br>
+
+#### 리스트의 종류
+
+- 순차 리스트 : 배열을 기반으로 구현
+- 연결 리스트 : 메모리의 동적할당을 기반으로 구현 (물리적인 주소가 연속적이지 않아도 됨)
+
+<br>
+
+#### 함수구현
+
+| 함수명       | 기능                                  |
+| ------------ | ------------------------------------- |
+| addtoFirst() | 리스트의 앞쪽에 원소를 추가           |
+| addtoLast()  | 리스트의 뒤쪽에 원소를 추가           |
+| add()        | 리스트의 특정 위치에 원소를 추가      |
+| delete()     | 리스트의 특정 위치에 있는 원소를 삭제 |
+| get()        | 리스트의 특정 위치에 있는 원소를 리턴 |
+
+<br>
+
+### E-1. 순차 리스트
+
+- 배열을 기반으로 생성된다. 즉, 메모리 공간에 물리적으로 연속된 리스트
+- 배열이므로 인덱스 기반으로 원소에 접근이 가능하며 빠르다.
+- 그러나, 삽입/삭제 연산이 빈번한 상황에서 사용하기 부적절하다.
+
+<br>
+
+>  #### 순차리스트의 문제점
+>
+> - 단순배열을 이용해 순차리스트를 구현하는 경우, 자료의 삽입/삭제 연산과정에서  연속적인 메모리 배열을 위해 원소들을 이동시키는 작업이 필요하다.
+> - 즉, 원소의 갯수가 크고 삽입/삭제가 빈번한 작업의 경우 소요시간이 크게 증가하게 된다. 
+> - 배열의 크기가 정해져 있는 경우, 리스트의 크기가 커지거나 실제 리스트에서 처리되는 연산이 작다면 메모리 공간이 낭비된다.
+
+<br>
+
+### E-2. 단순 연결 리스트(Linked List)
+
+- 자료의 논리적인 순서와 메모리 상의 물리적인 순서가 일치하지 않고, 개별적으로 위치하고 있는 원소의 주소를 연결하여 하나의 전체적인 자료구조를 이룬다.
+- 링크를 통해 원소에 접근하므로, 순차리스트처럼 물리적인 순서를 맞추기 위한 작업이 필요하지 않다.
+- 자료구조의 크기를 동적으로 조정이 가능하므로, 메모리의 효율적인 사용이 가능
+
+<br>
+
+#### 연결리스트의 기본 구조
+
+- 노드
+  - 데이터 필드 : 원소의 값을 저장
+  - 링크 필드 : 다음 노드의 주소를 저장 
+- 헤드 
+  - 리스트의 처음 노드를 가리킴
+- 연결 구조 
+  - 노드의 링크 필드에 의해 다음 노드와 연결되는 구조를 가진다.
+  - 헤드는 가장 앞의 노드를 가리키며, 링크 필드가 연속적으로 다음 노드를 가리킨다.
+  - 최종적으로 NULL을 가리키는 노드가 리스트의 가장 마지막 노드이다.
+
+<br>
+
+#### 구현	
+
+*code: /Study-Algorithm/LinkedList.py*
+
+```python
+class Node :
+    def __init__(self,data,link=None) :
+        self.data = data 
+        self.link = link
+
+class LinkedList :
+    def __init__(self) :
+        self.head = None
+    
+    def addtoFirst(self, data) :
+        """
+        head가 가지고 있는 값 자체가 다음 노드이므로 
+        self.head.link가 아니라 self.head가 되어야 한다.
+        """
+        self.head = Node(data, self.head)
+
+    def add(self, pre, data) :
+        if pre == None :
+            print("error")
+        else :
+            pre.link = Node(data,pre.link)
+    
+    def addtoLast(self, data) :
+        if self.head == None :
+            self.head = Node(data,None)
+        else :
+            p = self.head
+            # 마지막 노드 찾기
+            while p.link != None :
+                p = p.link
+            
+            p.link = Node(data,None)
+
+    # pre의 다음 노드를 삭제
+    def delete(self, pre) :
+        if pre == None or pre.link == None :
+            print('error')
+        else :
+            pre.link = pre.link.link
+    
+    def get(self, index) :
+        if self.head == None :
+            return None
+        # 1번째는 head
+        p = self.head 
+
+        for _ in range(index-1) :
+            # 연결리스트의 크기가 index보다 작은 경우
+            if p.link == None :
+                return None
+            p = p.link
+        return p
+
+    def printList(self) :
+        if self.head == None :
+            print("empty")
+        else :
+            p = self.head 
+            while p.link != None :
+                print(p.data, end=' | ')
+                p = p.link
+            print(p.data)
+```
+
+<br>
+
+*<b>항상 순차 리스트보다 연결 리스트가 좋은 것은 아니다.</b> 자료의 크기가 정해져 있고, 삽입/삭제 연산이 빈번하지 않고 조회가 많은 연산에서는 순차 리스트의 사용이 적절하다.*
+
+<br>
+
+### E-3. 이중 연결 리스트(Doubly Linked List)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
