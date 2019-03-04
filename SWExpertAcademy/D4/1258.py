@@ -24,7 +24,6 @@ def makeEmpty(x,y,height, width) :
             an[x+h][y+w] = 0
 
 
-
 T = int(input())
 for test_case in range(1, T+1) :
     n = int(input())
