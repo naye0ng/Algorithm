@@ -2,7 +2,6 @@
 2001.파리퇴치
 """
 t = int(input())
-
 for test_case in range(1,t+1) :
     n, m = map(int, input().split())
     an = [ list(map(int,input().split())) for j in range(n)]
