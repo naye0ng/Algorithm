@@ -23,52 +23,48 @@ begin	target	words	return
 hit	cog	[hot, dot, dog, lot, log, cog]	4
 hit	cog	[hot, dot, dog, lot, log]	0
 """
-# answer= 0
-#
-# def DFS(N, visited, words, target, begin) :
-#     global answer
-#     # 방문한 적이 없는 경우
-#     if 1 not in visited :
-#         # 타겟에 해당하는 값이 존재한다면
-#         try:
-#             i = words.index(target)
-#             visited[i] = 1
-#             next = words[i]
-#             answer+=1
-#             DFS(N,visited,words,next,begin)
-#         except :
-#             return 0
-#     else :
-#         # 하나만 다른 경우 찾기
-#         for i in range(N) :
-#             # 방문한 적이 없고, 1글자만 다를경우
-#             if visited[i] == 0 :
-#                 if words[i] == target :
-#                     answer+=1
-#                     break
-#                 # 글자 수 비교
-#                 diff = 0
-#                 for s in range(len(target)) :
-#                     if words[i][s] != target[i][s] :
-#                         diff+=1
-#                 #글자수 다른게 한 개 뿐이라면
-#                 if diff == 1 :
-#                     visited[i] =1
-#                     next = words[i]
-#                     answer+=1
-#                     DFS(N,visited,words,next,begin)
-#                     visited[i] = 0
+answer= 0
 
+# 글자수 비교함수
+def diffOne(a,b) :
+    check = 0
+    for i in range(len(a)) :
+        if a[i] != b[i] :
+            check+=1
+    if check == 1 :
+        return True
+    return False
+
+def BackTracking(n, begin, words, visited, k) :
+    global answer
+    if answer == 0 or answer > n:
+        if diffOne(begin,words[k]) :
+            answer = n
+            return
+        else :
+            for i in range(len(words)) :
+                if visited[i] != 1 and diffOne(words[i],words[k]) :
+                    visited[i] = 1
+                    BackTracking(n+1,begin,words,visited,i)
+                    visited[i] = 0
 
 def solution(begin, target, words):
     global answer
+    answer = 0
     N = len(words)
     visited = [0]*N
 
+    # 변환가능한지 체크
+    if target in words :
+        i = words.index(target)
+        visited[i] =1
+        BackTracking(1,begin,words,visited,i)
 
     return answer
 
 
-
+# print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log","dog", "lot", "log", "cog"]))
+print(solution("cog", "hit", ["hit","cit","cis","cig"]))
+print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))
 
 
