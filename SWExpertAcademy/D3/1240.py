@@ -14,13 +14,14 @@ for test_case in range(1,1+T) :
     target = 0, []
     for n in range(N) :
         if arr[n] != empty :
-            # 암호문 배열 반환
+            # 암호문 배열 반환 
+            # 이 부분은 python의 mat함수
             for i in range(M-1,-1,-1) :
                 if arr[n][i] == '1' :
-                    # target = [ arr[n][k-6:k+1] for k in range(i, 5, -7)]
                     target = [ arr[n][k-7:k] for k in range(i-48, i+6, 7)]
                     break
             break
+    # replace말고 dictionary를 사용하는 것도 고려하자.
     for i in range(8) :
         target[i] = target[i].replace('0001101', '0')
         target[i] = target[i].replace('0011001', '1')

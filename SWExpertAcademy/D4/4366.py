@@ -3,7 +3,6 @@
 
 -  2진수와 3진수의 값은 무조건 1자리씩 틀리다. 한자리씩 변환하여 같은 수를 반환해라
 """
-
 import sys
 sys.stdin = open('input.txt','r')
 

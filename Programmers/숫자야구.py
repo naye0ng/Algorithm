@@ -14,29 +14,27 @@ def match(t,baseball) :
         S = baseball[0][1]
         B = baseball[0][2]
         s, b = 0, 0
+        # 스트라이크 체크
+        visited = [0]*3
         for i in range(3) :
-            # 스트라이크
             if N[i] == t[i] :
                 s += 1
-            # 볼체크
-            if i == 0 :
-                if N[1] == t[2] :
-                    b += 1
-                if N[2] == t[1] :
-                    b += 1
-            elif i == 1:
-                if N[0] == t[2] :
-                    b += 1
-                if N[2] == t[0] :
-                    b += 1
-            elif i == 2:
-                if N[0] == t[1] :
-                    b += 1
-                if N[1] == t[0] :
-                    b += 1
-            if S == s and B == b :
-                match(t,baseball[1:])
-                break
+                visited[i] = 1
+        # 2st 이상일때 1b이 나올 수 없다!
+        if sum(visited) < 2 :
+            for j in range(3) :
+                if visited[j] == 1 :
+                    continue
+                for k in range(3) :
+                    if k == j :
+                        continue
+                    if t[j] == N[k] :
+                        b+=1 
+                        break
+        # 전체 체크
+        if S == s and B == b :
+            match(t,baseball[1:])
+
 def is_ok(t) :
     if '0' in t :
         return False
