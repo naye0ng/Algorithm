@@ -13,4 +13,28 @@
 
 ### 그리디
 - [x] 체육복
-- [ ] 큰 수 만들기
+- [x] 큰 수 만들기 : Python의얕은 복사, append속도, insert()메서드
+> **Python 얕은 복사**
+>
+> ```python
+> # python 얕은복사
+> a = [1,2,3]
+> coppy1 = a 
+> coppy2 = a[:]
+> a[0] = 0
+> print(coppy1) # [0,2,3]
+> print(coppy2) # [1,2,3]
+> ```
+
+>**Python list 메서드 속도**
+>
+>[1] += 보다 append가 더 빠르다.
+>[2] 특정 인덱스에 원소를 삽입하고 싶다면, concatnate가 아니라 insert(인덱스, 값) 메서드를 사용하자.
+-[ ] 조이스틱
+
+
+## (2018년)KAKAO BLIND RECRUITMENT
+- [x] 오픈채팅방
+- [x] 실패율 : sort() 한번으로 처리가기 위해 '1-실패율'로 처리
+- [ ] 후보키 
+- [ ] 길 찾기 게임

@@ -1,33 +1,28 @@
 """
 큰 수 만들기
 """
-maxNum = ""
-
-# 자리수가 정해져 있음, 중복 안됨 >> 조합으로 푼다.
-def comb(number, temp, n, r, k, s) :
-    if k == r :
-        local = "".join(temp)
-        global maxNum
-        if maxNum < local :
-            maxNum = local
-        print(temp, maxNum)
-    else :
-        for i in range(s,n-r+k+1) :
-            print(maxNum[k], number[i])
-            temp[k] = number[i]
-            comb(number,temp,n,r,k+1,i+1)
+def getNext(p,result) :
+    for i in range(p,len(result)-1) :
+        if result[i] < result[i+1] :
+            return i
+    return len(result)-1
 
 def solution(number, k):
-    number = number.replace('',' ').split()
+    number = list(map(int, number.replace('',' ').split()))
     n = len(number)
-    r = len(number)-k
-    temp = ["0"]*r
+    r = n-k
+    result = number[-r:]
+    p = getNext(0,result)
 
-    global maxNum
-    maxNum = "0" * r
+    for i in range(n-r-1,-1,-1) :
+        if number[i] >= result[0] :
+            result.pop(p)
+            result.insert(0,number[i])
+            # result = [number[i]]+result[0:p]+result[p+1:]
+            if p != r-1 :
+                p = getNext(p, result)
 
-    comb(number, temp, n, r, 0, 0)
-
-    return maxNum
+    return "".join(map(str,result))
 
 print(solution("1924", 2))
+print(solution("4177252841", 4))
