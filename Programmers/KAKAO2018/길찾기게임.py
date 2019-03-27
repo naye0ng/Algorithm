@@ -1,13 +1,21 @@
 """
 길 찾기 게임
 """
+import sys
+sys.setrecursionlimit(10**6)
 tree = []
+r1, r2 = [], []
 # 전위순회, 후위순회
 def preorder_traverse(T) :
     if T :
-        print(T)
+        r1.append(T)
         preorder_traverse(tree[T][0])
         preorder_traverse(tree[T][1])
+def postorder_traverse(T) :
+    if T :
+        postorder_traverse(tree[T][0])
+        postorder_traverse(tree[T][1])
+        r2.append(T)
 
 def solution(nodeinfo):
     N = len(nodeinfo)
@@ -16,7 +24,7 @@ def solution(nodeinfo):
         nodeinfo[i][0], nodeinfo[i][1] = nodeinfo[i][1],nodeinfo[i][0]
         nodeinfo[i].append(i+1)
     nodeinfo.sort(reverse=True)
-    print(nodeinfo)
+
     global tree
     tree = [[0, 0] for _ in range(N + 1)]
     root = nodeinfo[0][2]
@@ -53,6 +61,7 @@ def solution(nodeinfo):
                 # 본인정보 큐에 삽입
                 queue.append([nodeinfo[i][2],nodeinfo[i][1],mom[1]])
                 i+=1
+                if i >= N : break
             # 본인이 엄마보다 작은데 할머니보단 크다면
             if nodeinfo[i][1] < mom[1] and nodeinfo[i][1] > mom[2] :
                 # 엄마의 왼쪽에 삽입
@@ -67,16 +76,20 @@ def solution(nodeinfo):
                 # 본인 큐에 삽입
                 queue.append([nodeinfo[i][2],nodeinfo[i][1], mom[1]])
                 i+=1
+                if i >= N: break
             # 엄마보다 자식이 작다면
             if mom[1] > nodeinfo[i][1] :
                 tree[mom[0]][0] = nodeinfo[i][2]
-                queue.append([nodeinfo[i][0],nodeinfo[i][1],mom[1]])
+                queue.append([nodeinfo[i][2],nodeinfo[i][1],mom[1]])
                 i+=1
-    print(tree)
+    global r1, r2
+    r1, r2 = [], []
     preorder_traverse(root)
-    answer = [[]]
+    postorder_traverse(root)
+    answer = [r1,r2]
 
     return answer
 
 
 print(solution([[5,3],[11,5],[13,3],[3,5],[6,1],[1,3],[8,6],[7,2],[2,2]]))
+print(solution([[6,0],[7,2],[5,1],[4,3]]))

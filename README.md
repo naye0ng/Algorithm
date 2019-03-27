@@ -809,9 +809,9 @@ def preorder_traverse(T) :
 ```python
 def inorder_traverse(T) :
     if T :
-        preorder_traverse(tree[T][0])
+        inorder_traverse(tree[T][0])
         print(T)
-        preorder_traverse(tree[T][1])
+        inorder_traverse(tree[T][1])
 ```
 
 
@@ -824,8 +824,8 @@ def inorder_traverse(T) :
 ```python
 def postorder_traverse(T) :
     if T :
-        preorder_traverse(tree[T][0])
-        preorder_traverse(tree[T][1])
+        postorder_traverse(tree[T][0])
+        postorder_traverse(tree[T][1])
         print(T)
 ```
 
