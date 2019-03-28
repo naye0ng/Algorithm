@@ -12,7 +12,7 @@ def mergeSort(m) :
 
     left = mergeSort(left)
     right = mergeSort(right)
-
+    if left[-1] < right[0]: return left + right
     return merge(left, right)
 
 def merge(left, right) :
