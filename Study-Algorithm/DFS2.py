@@ -14,3 +14,10 @@ visitied = [0]*8
 
 # G는 연관성
 G = [[0]*8 for _ in range(8)]
+# 연관 배열에 값 넣기
+for i in range(0,len(edges),2) :
+    G[edges[i]][edges[i+1]] = 1
+    G[edges[i+1]][edges[i]] = 1
+
+print(G)
+DFS(2)

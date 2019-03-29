@@ -1,5 +1,5 @@
 """
-BFS.깊이우선탐색
+BFS.너비우선탐색
 """
 def visit(t) :
     pass

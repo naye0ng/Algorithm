@@ -9,7 +9,7 @@ class Queue :
         # # 큐가 포화 상태인 경우 출력
         # if self.isFull() :
         #     print("Full")
-        self.near += 1
+        self.rear += 1
         self.queue[self.rear] = value
 
     def deQueue(self) :
