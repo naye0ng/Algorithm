@@ -53,8 +53,3 @@ while backPoint.top > -1 :
         if w == len(match[v])-1 :
             v = backPoint.pop()
 
-
-
-"""
-추가로 각 역할들을 함수로 분리시키자 
-"""
