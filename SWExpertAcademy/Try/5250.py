@@ -6,6 +6,8 @@
 import sys
 sys.stdin = open('input.txt','r')
 
+import heapq
+
 dx = [-1,1,0,0]
 dy = [0,0,-1,1]
 
@@ -20,30 +22,41 @@ def dijstra(x,y) :
     # 현재 점 방문
     visited[N*x+y] = 1
     # 위, 아, 왼, 오 연관 점 => D
+    heap = []
     for i in range(4) :
         if not isWall(x+dx[i],y+dy[i]) :
+            next = N*(x+dx[i])+y+dy[i]
             if A[x][y] < A[x+dx[i]][y+dy[i]] :
-                D[N*(x+dx[i])+y+dy[i]] = 1+(A[x+dx[i]][y+dy[i]]-A[x][y])
+                D[next] = 1+(A[x+dx[i]][y+dy[i]]-A[x][y])
             else :
-                D[N*(x+dx[i])+y+dy[i]] = 1
+                D[next] = 1
+            heapq.heappush(heap, [D[next], next])
 
     while 0 in visited :
         #방문하지 않은 점들 중 가중치가 가장 작은 값
-        w, mini = 0, 99999
-        for i in range(N*N) :
-            if not visited[i] and mini >= D[i] :
-                mini = D[i]
-                w = i
+        # w, mini = 0, 99999
+        # for i in range(N*N) :
+        #     if not visited[i] and mini >= D[i] :
+        #         mini = D[i]
+        #         w = i
+
+        w = heapq.heappop(heap)[1]
 
         visited[w] = 1
         x, y = w//N, w%N
-        # w와 연관된 곳 조사하기
+        # w와 연관된 곳 조사
+        # 다음 후보 만들기
+        heap = []
         for i in range(4):
             if not isWall(x + dx[i], y + dy[i]):
                 temp = 1
                 if A[x][y] < A[x + dx[i]][y + dy[i]]:
                     temp += (A[x + dx[i]][y + dy[i]] - A[x][y])
-                D[N*(x+dx[i])+y+dy[i]] = min(D[N*(x+dx[i])+y+dy[i]],D[N*x+y]+temp)
+                next = N*(x+dx[i])+y+dy[i]
+                D[next] = min(D[N*(x+dx[i])+y+dy[i]],D[N*x+y]+temp)
+                # 다음 후보군
+                if not visited[next] :
+                    heapq.heappush(heap,[D[next],next])
 
     return D[-1]
 
