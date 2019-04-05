@@ -31,15 +31,14 @@ def dijstra(x,y) :
             else :
                 D[next] = 1
             heapq.heappush(heap, [D[next], next])
-
-    while 0 in visited :
+    v =1
+    while v < N*N :
         #방문하지 않은 점들 중 가중치가 가장 작은 값
         # w, mini = 0, 99999
         # for i in range(N*N) :
         #     if not visited[i] and mini >= D[i] :
         #         mini = D[i]
         #         w = i
-
         w = heapq.heappop(heap)[1]
 
         visited[w] = 1
@@ -57,7 +56,7 @@ def dijstra(x,y) :
                 # 다음 후보군
                 if not visited[next] :
                     heapq.heappush(heap,[D[next],next])
-
+        v+=1
     return D[-1]
 
 T = int(input())

@@ -12,7 +12,7 @@ def getMax(depth, t) :
         t= int(''.join(t))
         if result < t :
             result = t
-    # 갚은 깊이에 같은 값이 존재하지 않다면
+    # 같은 깊이에 같은 값이 존재하지 않다면
     else :
         for i, j in comb :
             temp = t[:]
