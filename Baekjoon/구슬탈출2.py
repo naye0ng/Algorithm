@@ -1,6 +1,8 @@
 """
 구슬탈출2
 https://www.acmicpc.net/problem/13460
+
+TIP : 왼쪽으로 이동한 후에는 왼쪽, 오른쪽으로 이동하지 않아도 된다.
 """
 import copy
 
@@ -36,12 +38,12 @@ def moveLeft(N,M,arr,depth) :
                 y += 1
             y = 1
             x += 1
-        if R :
-            result = depth
-        else : 
-            moveRight(N,M,puzzle,depth+1)
-            moveTop(N,M,puzzle,depth+1)
-            moveBottom(N,M,puzzle,depth+1)
+        if isNotEnd :
+            if R :
+                result = depth
+            else : 
+                moveTop(N,M,puzzle,depth+1)
+                moveBottom(N,M,puzzle,depth+1)
 
 def moveRight(N,M,arr,depth) :
     global result
@@ -73,12 +75,12 @@ def moveRight(N,M,arr,depth) :
                 y -= 1
             y = M-2
             x += 1
-        if R :
-            result = depth
-        else : 
-            moveLeft(N,M,puzzle,depth+1) 
-            moveTop(N,M,puzzle,depth+1) 
-            moveBottom(N,M,puzzle,depth+1)
+        if isNotEnd :
+            if R :
+                result = depth
+            else : 
+                moveTop(N,M,puzzle,depth+1) 
+                moveBottom(N,M,puzzle,depth+1)
 
 def moveTop(N,M,arr,depth) :
     global result
@@ -109,12 +111,12 @@ def moveTop(N,M,arr,depth) :
                 x += 1 
             x = 1
             y += 1
-        if R :
-            result = depth
-        else : 
-            moveRight(N,M,puzzle,depth+1)
-            moveLeft(N,M,puzzle,depth+1) 
-            moveBottom(N,M,puzzle,depth+1)
+        if isNotEnd :
+            if R :
+                result = depth
+            else : 
+                moveRight(N,M,puzzle,depth+1)
+                moveLeft(N,M,puzzle,depth+1) 
 
 def moveBottom(N,M,arr,depth) :
     global result
@@ -145,12 +147,12 @@ def moveBottom(N,M,arr,depth) :
                 x -= 1 
             x = N-2
             y += 1
-        if R :
-            result = depth
-        else : 
-            moveRight(N,M,puzzle,depth+1)
-            moveLeft(N,M,puzzle,depth+1) 
-            moveTop(N,M,puzzle,depth+1) 
+        if isNotEnd :
+            if R :
+                result = depth
+            else : 
+                moveRight(N,M,puzzle,depth+1)
+                moveLeft(N,M,puzzle,depth+1) 
 
 
 N, M = map(int, input().split())
@@ -160,24 +162,6 @@ moveRight(N,M,arr,1)
 moveLeft(N,M,arr,1) 
 moveTop(N,M,arr,1) 
 moveBottom(N,M,arr,1) 
+if result == 100 :
+    result = -1
 print(result)
-
-"""
-10 10
-##########
-#R#...##B#
-#...#.##.#
-#.###.##.#
-#......#.#
-#.######.#
-#.#....#.#
-#.#.##...#
-#O..#....#
-##########
-5 5
-#####
-#..B#
-#.#.#
-#.OR#
-#####
-"""
