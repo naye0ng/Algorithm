@@ -1,9 +1,8 @@
 """
-배열돌리기
+배열돌리기4
 https://www.acmicpc.net/problem/17406
 """
 import copy
-import itertools
 
 result = -1
 
@@ -14,7 +13,7 @@ dy = [1, 0, -1, 0]
 
 def rotate_clockwise(x, y, size, target):
     if size <= 1:
-        getMin(target)
+        return target
     else:
         temp = target[x][y]
         i = 0
@@ -24,30 +23,33 @@ def rotate_clockwise(x, y, size, target):
                 y += dy[i]
                 target[x][y], temp = temp, target[x][y]
             i += 1
-        rotate_clockwise(x+1, y+1, size-2, target)
+        return rotate_clockwise(x+1, y+1, size-2, target)
 
 # 행 계산
-
-
-def getMin(target):
+def getMin(N, M, target):
     global result
-    L = len(target)
-    for x in range(L):
+    for x in range(N) :
         localSum = 0
-        for y in range(L):
+        for y in range(M) :
             localSum += target[x][y]
-            if localSum >= result and result > -1:
+            if result != -1 and localSum > result :
                 break
-        if localSum < result or result == -1:
+        if result == -1 or localSum < result  :
             result = localSum
 
-# N, M, K = map(int, input().split())
-# arr = [ list(map(int, input().split())) for _ in range(N)]
-# rcs = [ list(map(int, input().split())) for _ in range(K)]
-# for i in range(K) :
-#     rotate_clockwise(rcs[i][0]-rcs[i][2]-1,rcs[i][1]-rcs[i][2]-1,(rcs[i][0]+rcs[i][2])-(rcs[i][0]-rcs[i][2])+1,copy.deepcopy(arr))
-# print(result)
+def DFS(N, M, K,rcs,target) :
+    if sum(visited) == K :
+        getMin(N, M, target)
+    for i in range(K) :
+        if not visited[i] :
+            visited[i] = 1
+            DFS(N, M, K,rcs,rotate_clockwise(rcs[i][0]-rcs[i][2]-1,rcs[i][1]-rcs[i][2]-1,(rcs[i][0]+rcs[i][2])-(rcs[i][0]-rcs[i][2])+1,copy.deepcopy(target)))
+            visited[i] = 0
 
-mypermuatation =  itertools.permutations(mylist)
-for i in mypermuatation:
-    print i
+
+N, M, K = map(int, input().split())
+arr = [ list(map(int, input().split())) for _ in range(N)]
+rcs = [ list(map(int, input().split())) for _ in range(K)]
+visited = [ 0 for _ in range(K)]
+DFS(N, M, K,rcs,arr)
+print(result)
