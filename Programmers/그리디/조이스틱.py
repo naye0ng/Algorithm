@@ -2,7 +2,6 @@
 조이스틱
 """
 
-
 def UpDown(name) :
     count = 0
     for i in range(len(name)):
