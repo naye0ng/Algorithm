@@ -19,7 +19,7 @@ def oneLoop(N, atoms) :
             board[x][y] = False
             x += dx[d]
             y += dy[d]
-            if (x >= -2000 and x <= 2000) and (y >= -2000 and y <= 2000) :
+            if (x >= -2000 and x < 2000) and (y >= -2000 and y < 2000) :
                 # 겹치는 것이 있다면?
                 if board[x][y] :
                     score += k
