@@ -1,5 +1,5 @@
 """
-5644 - 무선충전
+무선충전
 https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRDL1aeugDFAUo&categoryId=AWXRDL1aeugDFAUo&categoryType=CODE
 """
 # 겹치는 것 검색
@@ -69,7 +69,3 @@ for test_case in range(1, T + 1):
         m += 1
 
     print('#{} {}'.format(test_case,result))
-
-
-
-    
