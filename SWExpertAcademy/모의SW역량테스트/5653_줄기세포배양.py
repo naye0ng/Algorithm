@@ -1,50 +1,50 @@
 """
-5653 - 줄기세포배양
+줄기세포 배양
 https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRJ8EKe48DFAUo&categoryId=AWXRJ8EKe48DFAUo&categoryType=CODE
 """
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
-def cell(K,t,x1,y1,x2,y2) :
-    # 루프를 돌면서 현재 활성이라면?
-    for x in range(x1,x2) :
-        for y in range(y1,y2) :
-            if container[x][y] >= 1 :
-                # 비활성 상태
-                if visited[x][y][0] < container[x][y] :
-                    visited[x][y][0] += 1
-                # 활성상태
-                elif visited[x][y][0] == container[x][y] and visited[x][y][1] < container[x][y] :
-                    # 여기에서 변경 시작
-                    for i in range(4) :
-                        pass
-                    visited[x][y][1] += 1
-                # 죽은 상태이므로 변경
-                else :
-                    container[x][y] = 0
-                    
-                    
 
+dx = [-1,0,1,0]
+dy = [0,-1,0,1]
 
 T = int(input())
-for test_case in range(1, T+1) :
-    # N, M, K = map(int, input().split())
-    # [비활성, 활성]
-    visited = [[0,0]*6050 for _ in range(6050)]
-    container = [[0]*6050 for _ in range(6050)]
-    # 3000부터 시작하는 거임
-    for x in range(N) :
-        row = list(map(int, input().split()))
-        for y in range(M) :
-            container[3000+x][3000+y] = row[y] 
-    cell(K,0,3000,3000,3000+N,3000+M)
-    print("#{} {}".format(test_case, 1))
+for test_case in range(1, 1+T) :
+    N, M, K = map(int,input().split())
+    board = [[0]*(M+K*2) for _ in range(N+K*2)]
 
-"""
-1
-5 5 19
-3 2 0 3 0
-0 3 0 0 0
-0 0 0 0 0
-0 0 1 0 0
-0 0 0 0 2
-"""
+    t = 0 
+    for x in range(N) :
+        tmp = list(map(int, input().split()))
+        for y in range(M) :
+            if tmp[y] :
+                board[K+x][K+y] = [tmp[y],tmp[y],tmp[y], t]
+    
+    while t < K :
+        t+= 1
+        for x in range(N+K*2) :
+            for y in range(M+K*2) :
+                # 세포가 존재하는데 이전 시간에 추가된 경우, 살아있는 경우
+                # [TIP] 이전에 이 문제를 해결하지 못했던 이유는 동일한 시간에 추가된 세포도 처리했기 떄문이라고 생각함
+                if board[x][y] and board[x][y][3] != t and board[x][y][1] > 0:
+                    # 비활성이라면
+                    if board[x][y][0] > 0 :
+                        board[x][y][0] -= 1
+                    elif board[x][y][0] == 0 :
+                        # 한번만 상하좌우로 확장됨
+                        for i in range(4) :
+                            # 빈자리, 같은 시간에 퍼진 것이면서 나보다 작은 경우
+                            if board[x+dx[i]][y+dy[i]] == 0 or (board[x+dx[i]][y+dy[i]][3] == t and board[x+dx[i]][y+dy[i]][2] < board[x][y][2]) :
+                                board[x+dx[i]][y+dy[i]] = [board[x][y][2],board[x][y][2],board[x][y][2],t]
+                        board[x][y][0] -= 1
+                        board[x][y][1] -= 1
+                    # 활성이라면
+                    else :
+                        board[x][y][1] -= 1\
+
+    # [2] 살아있는 세포 체크
+    result = 0
+    for x in range(N+K*2) :
+        for y in range(M+K*2) :
+            if board[x][y] and board[x][y][1] > 0 : 
+                result += 1
+
+    print('#{} {}'.format(test_case,result))

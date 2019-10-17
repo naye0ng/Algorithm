@@ -70,7 +70,8 @@ for test_case in range(1,1+T) :
                 reception[i][0] = receptionT[i]
                 reception[i][1] = people
         t += 1
-
+    if answer == 0 :
+        answer = -1
     print('#{} {}'.format(test_case,answer))
 
 
