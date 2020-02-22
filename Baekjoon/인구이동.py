@@ -2,52 +2,61 @@
 인구이동
 https://www.acmicpc.net/problem/16234
 """
-dx = [0,0,1,-1]
-dy = [1,-1,0,0]
-def isNotWall(N,x,y) :
-    if x >= 0 and x <= N-1 :
-        if y >= 0 and y <= N-1 :
-            return True
+dx = [-1,0,1,0]
+dy = [0,1,0,-1]
+def isNotWall(x,y) :
+    global N
+    if x < 0 or x >= N :
+        return False
+    if y < 0  or y >= N :
+        return False
+    return True
+
+def canUnion(s1,s2) :
+    global L, R
+    s = abs(s1-s2)
+    # 두 나라의 인구 차이가 L명 이상, R명 이하
+    if s >= L and s <= R : return True
     return False
 
-def movePeople(N, L, R, depth) :
-    visited = [ [False]*N for _ in range(N)]
-    isEnd = True
+def makeUnion() :
+    union = [[0]*N for _ in range(N)]
+    union_sum = {}  # {연합cnt : [수, 합]}
+    cnt = 0  # 연합의 수
     for x in range(N) :
-        for  y in range(N) :
-            if visited[x][y] == False : 
+        for y in range(N) :
+            if union[x][y] == 0 :
+                cnt += 1
+                union[x][y] = cnt
+                union_sum[cnt] = [1, board[x][y]]
                 queue = []
-                total = 0
-                makeSum = []
                 queue.append([x,y])
                 while queue :
-                    q = queue.pop(0)
-                    qx, qy = q[0], q[1]
-                    if visited[qx][qy] == False :
-                        visited[qx][qy] = True
-                        total += people[qx][qy]
-                        makeSum.append(q)
-                        for i in range(4) :
-                            if isNotWall(N, qx+dx[i], qy+dy[i]) and visited[qx+dx[i]][qy+dy[i]] == False:
-                                t = abs(people[qx][qy] - people[qx+dx[i]][qy+dy[i]]) 
-                                if t >= L and t <= R :
-                                    queue.append([qx+dx[i], qy+dy[i]])
-                # 계산하기
-                l = len(makeSum)
-                if l > 1 :
-                    isEnd = False
-                    aver = total//l
-                    for i in range(l) :
-                        people[makeSum[i][0]][makeSum[i][1]] = aver
-                total = 0
-                makeSum = []
-    if isEnd :
-        return depth
-    return movePeople(N, L, R, depth+1)
+                    a, b = queue.pop(0)
+                    for i in range(4) :
+                        if isNotWall(a+dx[i],b+dy[i]) and not union[a+dx[i]][b+dy[i]] and canUnion(board[a][b],board[a+dx[i]][b+dy[i]]) :
+                            union[a+dx[i]][b+dy[i]] = cnt
+                            union_sum[cnt][0] += 1
+                            union_sum[cnt][1] += board[a+dx[i]][b+dy[i]] 
+                            queue.append([a+dx[i],b+dy[i]])
 
+    # 연합이 없는 상태 : 연합 수 == 나라 수
+    if cnt == N*N : return True
+    
+    # 인구 이동
+    for x in range(N) :
+        for y in range(N) :
+            board[x][y] = (union_sum[union[x][y]][1] // union_sum[union[x][y]][0])
 
+    return False
 
 
 N, L, R = map(int, input().split())
-people = [ list(map(int, input().split())) for _ in range(N) ]
-print(movePeople(N,L,R,0))
+board = [list(map(int, input().split())) for _ in range(N)]
+
+T = 0
+for t in range(2001) :
+    if makeUnion() : 
+        T = t
+        break
+print(T)
