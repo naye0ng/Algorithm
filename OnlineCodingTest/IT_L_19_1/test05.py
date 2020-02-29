@@ -2,8 +2,6 @@
 백준 17071 찾아보기
 """
 
-
-
 def BFS(t, c, b) :
     print(t,"코니",c,"브라운",b, visited[b])
     if t == 6 :
