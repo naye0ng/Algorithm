@@ -5,6 +5,12 @@ console.log(arr)    // [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 
 // [문제 2] (독립된) 2차원 배열을 만드시오.
 // 자바스크립트 다차원 배열 선언 방법(https://smilerici.tistory.com/71)
+// (잘못된 예) - 얕은 복사가 일어남
+var array = Array(2).fill([])
+array[0][0] = 1
+console.log(array)  // [ [ 1 ], [ 1 ] ]
+
+
 arr = Array(2).fill(null).map(el => [])
 arr[0][0] = 1
 console.log(arr)
