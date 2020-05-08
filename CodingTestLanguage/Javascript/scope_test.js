@@ -21,3 +21,6 @@ console.log(a)
 
 
 console.log([1]==[1])
+console.log(b[0]==1)
+
+test()

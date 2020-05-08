@@ -57,13 +57,24 @@ G.sort((a,b) => {
 })
 console.log(G);
 
-// arr[0]에 대해선 오름차순(작 => 큰), arr[1]에 대해선 내림차순
-H.sort((a,b) =>{
-    // 0 : 앞이 클때 변경
-    // 1 : 뒤가 클때 변경
-    return a[1] < b[1] || a[0] > b[0];
+// arr[0]에 대해선 오름차순(작 => 큰), arr[1]에 대해 내림차순
+var array2 = [[2, "SFO"], [10, "ATL"], [5, "ICN"], [5, "SFO"], [5, "ATL"], [7, "SFO"]]
+array2.sort((arr1, arr2) => {
+    // 숫자 기준 오름차순 정렬
+    if(arr1[0] == arr2[0]){
+        return arr1[1] > arr2[1]
+    }
+    return arr1[0] > arr2[0]
+    
 })
-console.log(H);
+console.log(array2)
+// (아래 코드는 틀림)
+// H.sort((a,b) =>{
+//     // 0 : 앞이 클때 변경
+//     // 1 : 뒤가 클때 변경
+//     return a[1] < b[1] || a[0] > b[0];
+// })
+// console.log(H);
 
 
 var aa = []

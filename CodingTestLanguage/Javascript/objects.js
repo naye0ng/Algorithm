@@ -1,5 +1,5 @@
 var obj = {}
-// obj.a = [1,2]
+obj.a = [1,2]
 obj.b = {c:1}
 
 var obj2 = JSON.parse(JSON.stringify(obj))
