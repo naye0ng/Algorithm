@@ -1,55 +1,40 @@
-import collections
-
-# n이 이긴 애들의 갯수
-def win(n, m) :
-    global player
-    visited = [0]*n
-    queue = collections.deque(player[m][0])
-    num = len(queue)
-    for i in range(num) :
-        visited[queue[i]] = True
-    while queue :
-        q = queue.popleft()
-        for k in player[q][0] :
-            if visited[k] == False :
-                visited[k] = True
-                queue.append(k)
-                num += 1
-                player[m][0].add(k)
-    return num
-
-def lose(n, m) :
-    global player
-    visited = [0]*n
-    queue = collections.deque(player[m][1])
-    num = len(queue)
-    for i in range(num) :
-        visited[queue[i]] = True
-    while queue :
-        q = queue.popleft()
-        for k in player[q][1] :
-            if visited[k] == False :
-                visited[k] = True
-                queue.append(k)
-                num += 1
-                player[m][1].add(k)
-    return num
-
-player = []
 def solution(n, results):
-    global player
-    player = [[set() for i in range(2)] for _ in range(n)]
-    # 노드 초기화
-    for result in results :
-        winner, loser = result
-        player[winner-1][0].add(loser-1)
-        player[loser-1][1].add(winner-1)
-    
+    G = [[0]*n for _ in range(n)]
+    for w,l in results :
+        G[w-1][l-1] = 1
+        G[l-1][w-1] = -1
+
+    for x in range(n) :
+        for y in range(n) :
+            if x == y : continue
+            if G[x][y] == - 1 :
+                visited = [False]*n
+                visited[x] = True
+                visited[y] = True
+                queue = [y]
+                while queue :
+                    v = queue.pop(0)
+                    for i in range(n) :
+                        if G[v][i] == -1 and not visited[i]:
+                            G[x][i] = -1
+                            visited[i] = True
+                            queue.append(i)
+            if G[x][y] == 1 :
+                queue = [y]
+                visited = [False]*n
+                visited[x] = True
+                visited[y] = True
+                while queue :
+                    v = queue.pop(0)
+                    for i in range(n) :
+                        if G[v][i] == 1 and not visited[i]:
+                            G[x][i] = 1
+                            visited[i] = True
+                            queue.append(i)
     answer = 0
-    for i in range(n) :
-        if win(n,i) + lose(n,i) == n-1 :
-            answer += 1
-    
+    for x in range(n) :
+        if G[x].count(0)-1 == 1 : answer += 1
+
     return answer
 
 

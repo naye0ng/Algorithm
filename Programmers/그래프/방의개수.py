@@ -1,21 +1,28 @@
-"""
-방의개수
-https://programmers.co.kr/learn/courses/30/lessons/49190?language=python3
-"""
+dx = [-1,-1,0,1,1,1,0,-1]
+dy = [0,1,1,1,0,-1,-1,-1]
 
 def solution(arrows):
-    answer = 0
+    i, x, y = 0, 0, 0
+    E = 0
+    G = [[]]
+    V = [[x, y]]
+    for d in arrows :
+        x2, y2 = x+dx[d], y+dy[d]
+        if [x2, y2] not in V :
+            V.append([x2, y2])
+            G.append([])
+
+        i2 = V.index([x2, y2])
+        G[i].append(i2)
+        G[i2].append(i)
+        E += 1
+        i, x, y = i2, x2, y2
+   
+    return 1+E-len(V)
 
 
-    return answer
-
-    # 자기 자신이 나오면 연결됐다고 볼 수 있음 >> 그렇다면 중복은 어떻게 해결할 것인가?
 
 
+print(solution([6, 6, 6, 4, 4, 4, 2, 2, 2, 0, 0, 0, 1, 6, 5, 5, 3, 6, 0]))
 
 
-
-
-
-
-solution([6, 6, 6, 4, 4, 4, 2, 2, 2, 0, 0, 0, 1, 6, 5, 5, 3, 6, 0])
