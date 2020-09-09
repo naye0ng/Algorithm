@@ -23,3 +23,15 @@ console.log(dec)
 // 2진수 -> 16진수
 // 2-> 10->16
 var hex = parseInt(bin, 2).toString(16)
+
+// 십진수숫자.toString(진수) - 10진수 숫자를 해당 진수로 바꿔서 리턴 : 10 => n진수
+// parseInt(숫자, 현재 숫자의 진수) - 현재 숫자의 진수를 10진수로 변경 : n진수 => 10
+let d = 123
+console.log(d.toString(9))
+ 
+
+// 아스키 코드 치환하기
+let a = 'A'
+let code = a.charCodeAt()
+console.log(code)
+console.log(String.fromCharCode(code))

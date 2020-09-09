@@ -13,7 +13,7 @@ console.log(array)  // [ [ 1 ], [ 1 ] ]
 
 arr = Array(2).fill(null).map(el => [])
 arr[0][0] = 1
-console.log(arr)
+console.log(arr) //[ [ 1 ], [] ]
 
 arr = Array.from(Array(2), () => Array())
 console.log(arr)    // [ [], [] ]

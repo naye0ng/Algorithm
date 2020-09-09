@@ -1,5 +1,4 @@
 /* 자바스크립트 배열 메소드 */
-
 // [1] concat() : 인자로 주어진 값을 배열에 합쳐서 새 배열을 만든다.
 let arr = [1,2,3];
 console.log(arr.concat(4,5,6))      // [ 1, 2, 3, 4, 5, 6 ]
@@ -120,3 +119,7 @@ arr = Array.from("foo")
 console.log(arr)    // [ 'f', 'o', 'o' ]
 arr = Array.from([1,2,3], (x) => x+x)
 console.log(arr)    // [ 2, 4, 6 ]
+
+
+console.log('24:10' - '23:00')
+

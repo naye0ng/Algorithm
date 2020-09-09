@@ -2,7 +2,10 @@ var obj = {}
 obj.a = [1,2]
 obj.b = {c:1}
 
+
 var obj2 = JSON.parse(JSON.stringify(obj))
+
+
 obj.c = 3
 console.log(obj2)
 
@@ -20,6 +23,7 @@ console.log(bar);
 
 var arr = [2,3,4]
 for(var a in arr){
+    // a는 string임...
     console.log(a) // index
 }
 
@@ -36,3 +40,11 @@ for(var key in obj){
 }
 
 console.log(Object.keys(obj))
+
+console.log(obj.hasOwnProperty('a'))
+
+
+// JSON.parse() : string을 json으로
+// JSON.stringify() : json을 string으로
+let onj2 = {1: 1}
+a.json()

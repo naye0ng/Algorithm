@@ -76,7 +76,45 @@ console.log(array2)
 // })
 // console.log(H);
 
+function ascending(a, b){
+    if(a > b) return true
+    return false
+}
 
-var aa = []
-aa.push([2])
-console.log(aa)
+function descending(a, b){
+    if(a < b) return true
+    return false
+}
+
+var array = [[2, "SFO"], [10, "ATL"], [5, "ICN"], [5, "SFO"], [5, "ATL"], [7, "SFO"]]
+// [1] 0번 인자에 대한 오름차순 정렬
+array.sort((arr1, arr2) => ascending(arr1[0], arr2[0]))
+console.log(array)
+
+// [2] 0번 인자에 대한 내림차순 정렬
+array.sort((arr1, arr2) => descending(arr1[0], arr2[0]))
+console.log(array)
+
+// [3] 1번 인자에 대한 오름차순 정렬
+array.sort((arr1, arr2) => ascending(arr1[1], arr2[1]))
+console.log(array)
+
+// [4] 1번 인자에 대한 내림차순 정렬
+array.sort((arr1, arr2) => descending(arr1[1], arr2[1]))
+console.log(array)
+
+// [4] 0번 인자에 대한 오름차순 정렬 + 1번 인자에 대한 내림차순 정렬
+var array = [[2, "SFO"], [5, "ATL"], [10, "ATL"], [5, "ICN"], [5, "SFO"], [7, "SFO"]] // 정렬안됨
+array.sort((arr1, arr2) => {
+    // 같을 때 저리 필요함...
+    // var array = [[2, "SFO"], [5, "ATL"], [10, "ATL"], [5, "ICN"], [5, "SFO"], [7, "SFO"]]
+    return ascending(arr1[0], arr2[0]) ? true : descending(arr1[1], arr2[1])
+})
+
+
+// [주의] 자바스크립트의 sort는 내부적으로 >, < 비교를 수행하며 string 비교를 진행한다. 즉, 2 > 10으로 정렬된다.
+// 숫자 정렬을 하고 싶다면 -연산을 사용하는 습관을 들이자... 아니면 따로 콜백함수를 제작(ascendig)해주자!!
+array = [1,2,10]
+console.log(array.sort())   //[ 1, 10, 2 ]
+array.sort((a,b) => ascending(a,b))
+console.log(array)  // [ 1, 2, 10 ]
