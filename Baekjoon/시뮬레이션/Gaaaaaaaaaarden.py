@@ -25,6 +25,7 @@ def spread_cell(garden, GR) :
                 for i in range(4) :
                     if is_not_wall(x+dx[i], y+dy[i]) and visited[x+dx[i]][y+dy[i]] >= t and garden[x+dx[i]][y+dy[i]]:
                         color2 = garden[x+dx[i]][y+dy[i]]
+                        # [해결] 이동할 수 있는 위치에 이미 꽃이 핀 경우
                         if color2 == color or color2 == 'F': continue
                         if color2 == 1 :
                             garden[x+dx[i]][y+dy[i]] = color
