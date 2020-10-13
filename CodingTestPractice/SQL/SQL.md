@@ -67,6 +67,42 @@ WHERE @hour < 23;
 
 
 
+### 3) IF문
+
+- IF(조건, 조건을 만족할 때, 조건을 만족하지 않을 때)
+- ISNULL(컬럼) : 해당 값이 NULL 인지 체크한다.
+
+```sql
+SELECT ANIMAL_TYPE, IF(ISNULL(NAME), "No name", NAME), SEX_UPON_INTAKE
+FROM ANIMAL_INS;
+```
+
+
+
+### 4) JOIN 문
+
+- 보통 `LEFT JOIN`을 주로 사용한다.
+- 왼쪽에 있는 테이블을 기준으로 오른쪽 테이블이 합쳐지는 구조를 가진다.
+
+```sql
+SELECT OUTS.ANIMAL_ID, OUTS.NAME
+FROM ANIMAL_OUTS OUTS LEFT JOIN ANIMAL_INS INS ON OUTS.ANIMAL_ID = INS.ANIMAL_ID
+ORDER BY (OUTS.DATETIME - INS.DATETIME) DESC
+LIMIT 2
+```
+
+
+
+### 5) DATE_FORMAT()
+
+- DATETIME 타입 값 2017-04-13 16:29:00를 2018-01-22로 변환할 때 사용하는 함수
+
+```sql
+SELECT ANIMAL_ID, NAME, DATE_FORMAT(DATETIME,'%Y-%m-%d') 날짜
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID;
+```
+
 
 
 
